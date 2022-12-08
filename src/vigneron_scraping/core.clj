@@ -167,9 +167,42 @@ url-list
 (def sticky-contact
   [:body :section :div [:div (html/nth-child 3)] :div :div :div :div [:div (html/nth-child 7)]])
 
-#stickit-Contact
-/html/body/section/div/div[3]/div/div/div/div/div[7]
-/html/body/section/div/div[3]/div/div/div/div/div[8]
+; #stickit-Contact
+; /html/body/section/div/div[3]/div/div/div/div/div[7]
+; /html/body/section/div/div[3]/div/div/div/div/div[8]
+
+;; issue : it isn't constant selector, and #stickit-Contact selection doesn't work with enlive
+; sol 1 : use slurp
+; sol 2 : use something else than enlive
+
+(spit "domaine-du-pic.html" 
+  (slurp "https://www.vigneron-independant.com/domaine-du-pic"))
+
+(defn between [str regstart regend]
+  (let [thing-and-more (second
+                          (clojure.string/split str regstart))
+        thing (first (clojure.string/split thing-and-more regend))]
+  thing))
+
+(between "abcdefghijkl" #"b" #"f")
+
+(first
+    (clojure.string/split "abcdefghijkl" #"f"))
+
+(second (clojure.string/split "abcde" #"b"))
+
+
+
+(defn mobile [url]
+  (let [page (slurp url)
+        thing (between page #"mobile : <span>" #"</span></div>")]
+  thing))
+
+
+(mobile "https://www.vigneron-independant.com/domaine-du-pic")
+(mobile "https://www.vigneron-independant.com/champagne-lejeune-pere-et-fils")
+(mobile "https://www.vigneron-independant.com/domaine-delaunay-1")
+(mobile "https://www.vigneron-independant.com/vignobles-fontan")
 
 (def page-pic 
   (html/html-resource 
