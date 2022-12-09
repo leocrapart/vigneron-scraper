@@ -199,38 +199,45 @@ url-list
        (remove-first-and-last-char string)))))
 
 
-(defn mobile [url]
-  (between (slurp url) 
+(defn tel [page]
+  (between page 
+  #"<div class=\"tel\">Tél. : <span>"
+  #"</span>"))
+
+(defn mobile [page]
+  (between page 
   #"mobile : <span>"
   #"</span></div>"))
 
-(defn domain-name [url]
+
+
+(defn domain-name [page]
   (remove-4-first-and-last-char
-    (between (slurp url) 
+    (between page 
       #"pane-title\">\r\n"
       #"</h2>")))
 
 
-(defn website [url]
-  (between (slurp url) 
+(defn website [page]
+  (between page 
   #"<div class=\"url\">Web : <a href=\"http://"
   #"\" target=\"_blank\">"))
 
-(defn name-1 [url]
-  (between (slurp url) 
+(defn name-1 [page]
+  (between page 
   #"field-type-name field-label-hidden\"><div class=\"field-items\"><div class=\"field-item even\">"
   #"</div>"))
 
-(defn name-2 [url]
-  (let [result (between (slurp url) 
+(defn name-2 [page]
+  (let [result (between page 
                 #"</div><div class=\"field-item odd\">"
                 #"</div>")]
     (if (= (first result) \return)
       nil
       result)))
 
-(defn street-address [url]
-  (between (slurp url) 
+(defn street-address [page]
+  (between page 
   #"<div class=\"street-address\"><br>"
   #"</div>"))
 
@@ -238,211 +245,56 @@ url-list
 ; &#039; => '
 ; \r\n => SPACE
 
-(defn postal-code [url]
-  (between (slurp url) 
+(defn postal-code [page]
+  (between page 
   #"postal-code\">"
   #"</span>"))
 
-(defn locality [url]
-  (between (slurp url) 
+(defn locality [page]
+  (between page 
   #"locality\">"
   #"</span>"))
 
 
 
+(tel (slurp "https://www.vigneron-independant.com/domaine-du-pic"))
+(tel (slurp "https://www.vigneron-independant.com/champagne-lejeune-pere-et-fils"))
+(tel (slurp "https://www.vigneron-independant.com/domaine-delaunay-1"))
+(tel (slurp "https://www.vigneron-independant.com/vignobles-fontan"))
+
+
+(mobile (slurp "https://www.vigneron-independant.com/domaine-montcabrel"))
+(mobile (slurp "https://www.vigneron-independant.com/tisseyre-fanny"))
+(mobile (slurp "https://www.vigneron-independant.com/domaine-des-chauchoux-domaine-manigley"))
+(mobile (slurp "https://www.vigneron-independant.com/societe-paul-ricard"))
+(mobile (slurp "https://www.vigneron-independant.com/domaine-claudine-vigne"))
+(mobile (slurp "https://www.vigneron-independant.com/tempe-andr%C3)%A9-0"))
+(mobile (slurp "https://www.vigneron-independant.com/domaine-de-la-massonniere"))
+(mobile (slurp "https://www.vigneron-independant.com/domaine-romanissa"))
+(mobile (slurp "https://www.vigneron-independant.com/chateau-des-tuilieres-0"))
+(mobile (slurp "https://www.vigneron-independant.com/bergerie-daquino"))
+(mobile (slurp "https://www.vigneron-independant.com/domaine-les-maillols"))
+(mobile (slurp "https://www.vigneron-independant.com/champagne-michel-turgy-0"))
+(mobile (slurp "https://www.vigneron-independant.com/bouchard-guy"))
+(mobile (slurp "https://www.vigneron-independant.com/alsace-munsch"))
+(mobile (slurp "https://www.vigneron-independant.com/domaine-de-grand-beaupre"))
+(mobile (slurp "https://www.vigneron-independant.com/domaine-saint-antoine"))
+(mobile (slurp "https://www.vigneron-independant.com/domaine-philippe-tessier"))
+(mobile (slurp "https://www.vigneron-independant.com/domaine-du-ch%C3%AAne"))
+(mobile (slurp "https://www.vigneron-independant.com/domaine-la-croix-belle"))
+(mobile (slurp "https://www.vigneron-independant.com/les-chemins-de-bassac"))
+(mobile (slurp "https://www.vigneron-independant.com/chateau-la-tuilerie-du-puy"))
+(mobile (slurp "https://www.vigneron-independant.com/chateau-les-gravi%C3%A8res"))
+(mobile (slurp "https://www.vigneron-independant.com/chateau-garraud-chateau-treytins"))
+(mobile (slurp "https://www.vigneron-independant.com/chateau-de-lisennes"))
+(mobile (slurp "https://www.vigneron-independant.com/chateau-la-salargue"))
+
 (mobile "https://www.vigneron-independant.com/domaine-du-pic")
 (mobile "https://www.vigneron-independant.com/champagne-lejeune-pere-et-fils")
 (mobile "https://www.vigneron-independant.com/domaine-delaunay-1")
 (mobile "https://www.vigneron-independant.com/vignobles-fontan")
 
 
-(mobile "https://www.vigneron-independant.com/domaine-montcabrel")
-(mobile "https://www.vigneron-independant.com/tisseyre-fanny")
-(mobile "https://www.vigneron-independant.com/domaine-des-chauchoux-domaine-manigley")
-(mobile "https://www.vigneron-independant.com/societe-paul-ricard")
-(mobile "https://www.vigneron-independant.com/domaine-claudine-vigne")
-(mobile "https://www.vigneron-independant.com/tempe-andr%C3%A9-0")
-(mobile "https://www.vigneron-independant.com/domaine-de-la-massonniere")
-(mobile "https://www.vigneron-independant.com/domaine-romanissa")
-(mobile "https://www.vigneron-independant.com/chateau-des-tuilieres-0")
-(mobile "https://www.vigneron-independant.com/bergerie-daquino")
-(mobile "https://www.vigneron-independant.com/domaine-les-maillols")
-(mobile "https://www.vigneron-independant.com/champagne-michel-turgy-0")
-(mobile "https://www.vigneron-independant.com/bouchard-guy")
-(mobile "https://www.vigneron-independant.com/alsace-munsch")
-(mobile "https://www.vigneron-independant.com/domaine-de-grand-beaupre")
-(mobile "https://www.vigneron-independant.com/domaine-saint-antoine")
-(mobile "https://www.vigneron-independant.com/domaine-philippe-tessier")
-(mobile "https://www.vigneron-independant.com/domaine-du-ch%C3%AAne")
-(mobile "https://www.vigneron-independant.com/domaine-la-croix-belle")
-(mobile "https://www.vigneron-independant.com/les-chemins-de-bassac")
-(mobile "https://www.vigneron-independant.com/chateau-la-tuilerie-du-puy")
-(mobile "https://www.vigneron-independant.com/chateau-les-gravi%C3%A8res")
-(mobile "https://www.vigneron-independant.com/chateau-garraud-chateau-treytins")
-(mobile "https://www.vigneron-independant.com/chateau-de-lisennes")
-(mobile "https://www.vigneron-independant.com/chateau-la-salargue")
-
-(mobile "https://www.vigneron-independant.com/domaine-du-pic")
-(mobile "https://www.vigneron-independant.com/champagne-lejeune-pere-et-fils")
-(mobile "https://www.vigneron-independant.com/domaine-delaunay-1")
-(mobile "https://www.vigneron-independant.com/vignobles-fontan")
-
-(def page-pic 
-  (html/html-resource 
-    (java.net.URL. "https://www.vigneron-independant.com/domaine-du-pic")))
-
-(def jeune 
-  (html/html-resource 
-    (java.net.URL. "https://www.vigneron-independant.com/champagne-lejeune-pere-et-fils")))
-
-(def delaunay 
-  (html/html-resource 
-    (java.net.URL. "https://www.vigneron-independant.com/domaine-delaunay-1")))
-
-(def fontan 
-  (html/html-resource 
-    (java.net.URL. "https://www.vigneron-independant.com/vignobles-fontan")))
-
-(defn domain-name [content]
-  (first (:content
-      (first 
-        (html/select content [:body :section :div :div.panel-display.panel-1col.clearfix :div :div :div :h2])))))
-
-(defn name-1 [content]
-  (first (:content 
-    (first 
-      (html/select content [:body :section :div [:div (html/nth-child 3)] :div :div :div :div [:div (html/nth-child 7)] :div.establishment-contact :div :div.fn.org :div :div :div.field-item.even])))))
-
-(defn name-2 [content]
-  (first (:content 
-      (second 
-        (html/select content [:body :section :div [:div (html/nth-child 3)] :div :div :div :div [:div (html/nth-child 7)] [:div (html/nth-child 2)]])))))
-
-(defn street-address [content]
-  (second 
-    (:content 
-      (second 
-        (html/select content [:body :section :div [:div (html/nth-child 3)] :div :div :div :div [:div (html/nth-child 7)] [:div (html/nth-child 2)] :div])))))
-
-(defn postal-code [content]
-  (first (:content
-      (first 
-        (html/select content [:body :section :div [:div (html/nth-child 3)] :div :div :div :div [:div (html/nth-child 7)] :div.establishment-contact :div :div.adr :span.postal-code])))))
-
-(defn locality [content]
-  (first (:content
-      (first 
-        (html/select content [:body :section :div [:div (html/nth-child 3)] :div :div :div :div [:div (html/nth-child 7)] :div.establishment-contact :div :div.adr :span.locality])))))
-
-(defn mobile [content]
-  (first (:content
-      (first 
-        (html/select content [:body :section :div [:div (html/nth-child 3)] :div :div :div :div [:div (html/nth-child 7)] :div.establishment-contact :div :div.tel :span])))))
-
-
-; version 2 for https://www.vigneron-independant.com/domaine-du-pic
-
-(defn street-address-2 [content]
-  (second
-    (:content
-      (first
-        (html/select content 
-          (conj sticky-contact :div.establishment-contact :div :div.adr :div))))))
-
-(defn postal-code-2 [content]
-  (first (:content
-      (first 
-        (html/select content 
-          (conj sticky-contact :div.establishment-contact :div :div.adr :span.postal-code))))))
-
-(defn locality-2 [content]
-  (first (:content
-      (first 
-        (html/select content 
-          (conj sticky-contact :div.establishment-contact :div :div.adr :span.locality))))))
-
-(defn name-2-2 [content]
-  (first (:content
-      (first 
-        (html/select content 
-          (conj sticky-contact :div.establishment-contact :div :div.fn.org :div :div :div))))))
-
-
-(defn mobile-2 [content]
-  (first (:content
-      (first 
-        (html/select content 
-          (conj sticky-contact :div.establishment-contact :div [:div (html/nth-child 4)] :span))))))
-
-(mobile-2 fontan)
-
-(html/select fontan 
-    (conj sticky-contact :div.establishment-contact :div [:div (html/nth-child 4)] :span))
-
-(defn tel-2 [content]
-  (first (:content
-      (first 
-        (html/select content 
-          (conj sticky-contact :div.establishment-contact :div [:div (html/nth-child 3)] :span))))))
-
-(defn fax-2 [content]
-  (first (:content
-      (first 
-        (html/select content 
-          (conj sticky-contact :div.establishment-contact :div [:div (html/nth-child 5)] :span))))))
-
-(defn website-2 [content]
-  (first (:content
-      (first 
-        (html/select content 
-          (conj sticky-contact :div.establishment-contact :div :div.url :a))))))
-
-
-(defn website [content]
-  (first (:content
-      (first (html/select content [:body :section :div [:div (html/nth-child 3)] :div :div :div :div [:div (html/nth-child 7)] :div.establishment-contact :div :div.url :a])))))
-
-(def page-pic 
-  (html/html-resource 
-    (java.net.URL. "https://www.vigneron-independant.com/domaine-du-pic")))
-
-(def jeune 
-  (html/html-resource 
-    (java.net.URL. "https://www.vigneron-independant.com/champagne-lejeune-pere-et-fils")))
-
-(def delaunay 
-  (html/html-resource 
-    (java.net.URL. "https://www.vigneron-independant.com/domaine-delaunay-1")))
-
-(def fontan 
-  (html/html-resource 
-    (java.net.URL. "https://www.vigneron-independant.com/vignobles-fontan")))
-
-
-(name-2-2 page-pic)
-(street-address-2 page-pic)
-(postal-code-2 page-pic)
-(locality-2 page-pic)
-(mobile-2 page-pic)
-(tel-2 page-pic)
-(fax-2 page-pic)
-(website-2 page-pic)
-
-(def page delaunay)
-
-(name-2-2 delaunay)
-(street-address-2 page)
-(postal-code-2 page)
-(locality-2 page)
-(mobile-2 page) 
-(tel-2 page)
-(fax-2 page)
-(website-2 page)
-
-(mobile delaunay)
-(mobile-2 delaunay)
-(mobile fontan)
-(mobile-2 fontan)
 
 (defn wine-name [content] 
   (first (:content (first 
@@ -472,22 +324,26 @@ url-list
 
 
 (defn page-data [url]
-  (let [content (html/html-resource (java.net.URL. url))]
-    {:domain-name (domain-name content)
-     :name-1 (name-1 content)
-     :name-2 (name-2 content)
-     :street-address (street-address content)
-     :postal-code (postal-code content)
-     :locality (locality content)
-     :mobile (mobile content)
-     :website (website content)
-     :wine {:wine-name (wine-name content)
-            :wine-place (wine-place content)
-            :wine-designation (wine-designation content)
-            :wine-domain (wine-domain content)
-            :wine-type (wine-type content)
-            :wine-color (wine-color content)}}))
-(page-data url)
+  (let [page (slurp url)]
+    {:domain-name (domain-name page)
+     :name-1 (name-1 page)
+     :name-2 (name-2 page)
+     :street-address (street-address page)
+     :postal-code (postal-code page)
+     :locality (locality page)
+     :tel (tel page)
+     :mobile (mobile page)
+     :website (website page)
+     :url url
+     ; :wine {:wine-name (wine-name content)
+     ;        :wine-place (wine-place content)
+     ;        :wine-designation (wine-designation content)
+     ;        :wine-domain (wine-domain content)
+     ;        :wine-type (wine-type content)
+     ;        :wine-color (wine-color content)}
+     }))
+
+; (page-data url)
 
 
 (defn type-is-str [thing]
@@ -512,14 +368,16 @@ url-list
        (page-data :street-address)
        (page-data :postal-code)
        (page-data :locality)
+       (page-data :tel)
        (page-data :mobile)
        (page-data :website)
-       (get-in page-data [:wine :wine-name])
-       (get-in page-data [:wine :wine-place])
-       (get-in page-data [:wine :wine-designation])
-       (get-in page-data [:wine :wine-domain])
-       (get-in page-data [:wine :wine-type])
-       (get-in page-data [:wine :wine-color])
+       (page-data :url)
+       ; (get-in page-data [:wine :wine-name])
+       ; (get-in page-data [:wine :wine-place])
+       ; (get-in page-data [:wine :wine-designation])
+       ; (get-in page-data [:wine :wine-domain])
+       ; (get-in page-data [:wine :wine-type])
+       ; (get-in page-data [:wine :wine-color])
        ])))
 
 (excel-row (page-data url))
@@ -552,23 +410,39 @@ url-list
    "https://www.vigneron-independant.com/chateau-la-martinette"
   ])
 
-(count url-list)
+; (count url-list)
+
+(defn not-empty? [thing]
+  (not (empty? thing)))
+(not-empty? "")
+
+(defn remove-empty-strings [vec]
+  (filter not-empty? vec))
+
+(defn url-list [filename]
+  (remove-empty-strings
+    (clojure.string/split (slurp filename) #"\n")))
+
 
 
 ; scrapes the pages
-(defn data [n]
+(defn data [filename n]
   (vec
-    (map page-data (take n url-list))))
+    (map page-data (take n (url-list filename)))))
 
-(data 10)
-(data 20)
-(data 30)
-(data 40)
-(data 50)
+
+(data "urls.txt" 10)
+(data "urls.txt" 20)
+(data "urls.txt" 30)
+(data "urls.txt" 40)
+(data "urls.txt" 50)
+(data "urls.txt" 100)
 (count (data 20))
 
 (def title-list 
-  ["domain-name" "name-1" "name-2" "street-address" "postal-code" "locality" "mobile" "website" "wine-name" "wine-place" "wine-designation" "wine-domain" "wine-type" "wine-color"])
+  ["domain-name" "name-1" "name-2" "street-address" "postal-code" "locality" "tel" "mobile" "website" "url"
+  ; "wine-name" "wine-place" "wine-designation" "wine-domain" "wine-type" "wine-color"
+  ])
 
 (defn for-excel [data]
   `[~title-list ~@(vec (map excel-row data))])
@@ -592,10 +466,64 @@ url-list
                                                        :font {:bold true}}))
     (save-workbook! "scraped-data.xlsx" wb)))
 
-(defn scrape-and-save-excel []
-  (let [data (data 500)]
+(defn scrape-and-save-excel [filename n]
+  (let [data (data filename n)]
     (save-excel data)))
 
-(scrape-and-save-excel)
+(scrape-and-save-excel "urls-1001-2000.txt" 1000)
+
+; do others
+; try parrallel
+
+
 
 ;;;; test zone
+
+(def url-list-x
+  (filter not-empty
+  (clojure.string/split (slurp "urls.txt") #"\n")))
+
+; concatenate urls 1000
+
+(def u0-1000 (take 1000 url-list-x))
+
+(def u1001-2000 (take 1000
+  (drop 1000 url-list-x)))
+
+(def u2001-3000 (take 1000
+  (drop 2000 url-list-x)))
+
+(def u3001-4000 (take 1000
+  (drop 3000 url-list-x)))
+
+(def u4001-5000 (take 1000
+  (drop 4000 url-list-x)))
+
+(def u4001-5910 (take 1000
+  (drop 5000 url-list-x)))
+
+(defn inject-new-line [a b]
+  (str a "\n" b))
+
+(defn inject-new-lines [seq]
+  (reduce inject-new-line seq))
+
+(defn save-seq-into-txt-file [file-name seq]
+  (spit file-name (inject-new-lines seq)))
+
+(defn concat-save [filename vector]
+  (save-seq-into-txt-file filename (seq vector)))
+
+(concat-save "urls-0-1000.txt" u0-1000)
+(concat-save "urls-1001-2000.txt" u1001-2000)
+(concat-save "urls-2001-3000.txt" u2001-3000)
+(concat-save "urls-3001-4000.txt" u3001-4000)
+(concat-save "urls-4001-5000.txt" u4001-5000)
+(concat-save "urls-5000-5910.txt" u4001-5910)
+
+
+
+; remove empty lines in urls.txt
+; split in 6 files of 1000 + 1000 + 1000 + 1000 + 1000 + 910 urls
+; scrape each file one by one and save in 6 different excels
+; fuse excels by hand (easy)
