@@ -175,29 +175,112 @@ url-list
 ; sol 1 : use slurp
 ; sol 2 : use something else than enlive
 
-(spit "domaine-du-pic.html" 
-  (slurp "https://www.vigneron-independant.com/domaine-du-pic"))
 
 (defn between [str regstart regend]
   (let [thing-and-more (second
-                          (clojure.string/split str regstart))
-        thing (first (clojure.string/split thing-and-more regend))]
-  thing))
+                          (clojure.string/split str regstart))]
+  (if thing-and-more
+    (first (clojure.string/split thing-and-more regend))
+    nil)))
 
-(between "abcdefghijkl" #"b" #"f")
+(defn save-page [filename url]
+  (spit filename 
+    (slurp url)))
 
-(first
-    (clojure.string/split "abcdefghijkl" #"f"))
+(defn remove-first-and-last-char [string]
+  (apply str
+    (drop-last 
+      (drop 1 string))))
 
-(second (clojure.string/split "abcde" #"b"))
-
+(defn remove-4-first-and-last-char [string]
+  (remove-first-and-last-char
+    (remove-first-and-last-char
+      (remove-first-and-last-char
+       (remove-first-and-last-char string)))))
 
 
 (defn mobile [url]
-  (let [page (slurp url)
-        thing (between page #"mobile : <span>" #"</span></div>")]
-  thing))
+  (between (slurp url) 
+  #"mobile : <span>"
+  #"</span></div>"))
 
+(defn domain-name [url]
+  (remove-4-first-and-last-char
+    (between (slurp url) 
+      #"pane-title\">\r\n"
+      #"</h2>")))
+
+
+(defn website [url]
+  (between (slurp url) 
+  #"<div class=\"url\">Web : <a href=\"http://"
+  #"\" target=\"_blank\">"))
+
+(defn name-1 [url]
+  (between (slurp url) 
+  #"field-type-name field-label-hidden\"><div class=\"field-items\"><div class=\"field-item even\">"
+  #"</div>"))
+
+(defn name-2 [url]
+  (let [result (between (slurp url) 
+                #"</div><div class=\"field-item odd\">"
+                #"</div>")]
+    (if (= (first result) \return)
+      nil
+      result)))
+
+(defn street-address [url]
+  (between (slurp url) 
+  #"<div class=\"street-address\"><br>"
+  #"</div>"))
+
+; upgrade :
+; &#039; => '
+; \r\n => SPACE
+
+(defn postal-code [url]
+  (between (slurp url) 
+  #"postal-code\">"
+  #"</span>"))
+
+(defn locality [url]
+  (between (slurp url) 
+  #"locality\">"
+  #"</span>"))
+
+
+
+(mobile "https://www.vigneron-independant.com/domaine-du-pic")
+(mobile "https://www.vigneron-independant.com/champagne-lejeune-pere-et-fils")
+(mobile "https://www.vigneron-independant.com/domaine-delaunay-1")
+(mobile "https://www.vigneron-independant.com/vignobles-fontan")
+
+
+(mobile "https://www.vigneron-independant.com/domaine-montcabrel")
+(mobile "https://www.vigneron-independant.com/tisseyre-fanny")
+(mobile "https://www.vigneron-independant.com/domaine-des-chauchoux-domaine-manigley")
+(mobile "https://www.vigneron-independant.com/societe-paul-ricard")
+(mobile "https://www.vigneron-independant.com/domaine-claudine-vigne")
+(mobile "https://www.vigneron-independant.com/tempe-andr%C3%A9-0")
+(mobile "https://www.vigneron-independant.com/domaine-de-la-massonniere")
+(mobile "https://www.vigneron-independant.com/domaine-romanissa")
+(mobile "https://www.vigneron-independant.com/chateau-des-tuilieres-0")
+(mobile "https://www.vigneron-independant.com/bergerie-daquino")
+(mobile "https://www.vigneron-independant.com/domaine-les-maillols")
+(mobile "https://www.vigneron-independant.com/champagne-michel-turgy-0")
+(mobile "https://www.vigneron-independant.com/bouchard-guy")
+(mobile "https://www.vigneron-independant.com/alsace-munsch")
+(mobile "https://www.vigneron-independant.com/domaine-de-grand-beaupre")
+(mobile "https://www.vigneron-independant.com/domaine-saint-antoine")
+(mobile "https://www.vigneron-independant.com/domaine-philippe-tessier")
+(mobile "https://www.vigneron-independant.com/domaine-du-ch%C3%AAne")
+(mobile "https://www.vigneron-independant.com/domaine-la-croix-belle")
+(mobile "https://www.vigneron-independant.com/les-chemins-de-bassac")
+(mobile "https://www.vigneron-independant.com/chateau-la-tuilerie-du-puy")
+(mobile "https://www.vigneron-independant.com/chateau-les-gravi%C3%A8res")
+(mobile "https://www.vigneron-independant.com/chateau-garraud-chateau-treytins")
+(mobile "https://www.vigneron-independant.com/chateau-de-lisennes")
+(mobile "https://www.vigneron-independant.com/chateau-la-salargue")
 
 (mobile "https://www.vigneron-independant.com/domaine-du-pic")
 (mobile "https://www.vigneron-independant.com/champagne-lejeune-pere-et-fils")
