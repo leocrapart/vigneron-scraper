@@ -1,0 +1,156 @@
+(def page-pic 
+  (html/html-resource 
+    (java.net.URL. "https://www.vigneron-independant.com/domaine-du-pic")))
+
+(def jeune 
+  (html/html-resource 
+    (java.net.URL. "https://www.vigneron-independant.com/champagne-lejeune-pere-et-fils")))
+
+(def delaunay 
+  (html/html-resource 
+    (java.net.URL. "https://www.vigneron-independant.com/domaine-delaunay-1")))
+
+(def fontan 
+  (html/html-resource 
+    (java.net.URL. "https://www.vigneron-independant.com/vignobles-fontan")))
+
+(defn domain-name [content]
+  (first (:content
+      (first 
+        (html/select content [:body :section :div :div.panel-display.panel-1col.clearfix :div :div :div :h2])))))
+
+(defn name-1 [content]
+  (first (:content 
+    (first 
+      (html/select content [:body :section :div [:div (html/nth-child 3)] :div :div :div :div [:div (html/nth-child 7)] :div.establishment-contact :div :div.fn.org :div :div :div.field-item.even])))))
+
+(defn name-2 [content]
+  (first (:content 
+      (second 
+        (html/select content [:body :section :div [:div (html/nth-child 3)] :div :div :div :div [:div (html/nth-child 7)] [:div (html/nth-child 2)]])))))
+
+(defn street-address [content]
+  (second 
+    (:content 
+      (second 
+        (html/select content [:body :section :div [:div (html/nth-child 3)] :div :div :div :div [:div (html/nth-child 7)] [:div (html/nth-child 2)] :div])))))
+
+(defn postal-code [content]
+  (first (:content
+      (first 
+        (html/select content [:body :section :div [:div (html/nth-child 3)] :div :div :div :div [:div (html/nth-child 7)] :div.establishment-contact :div :div.adr :span.postal-code])))))
+
+(defn locality [content]
+  (first (:content
+      (first 
+        (html/select content [:body :section :div [:div (html/nth-child 3)] :div :div :div :div [:div (html/nth-child 7)] :div.establishment-contact :div :div.adr :span.locality])))))
+
+(defn mobile [content]
+  (first (:content
+      (first 
+        (html/select content [:body :section :div [:div (html/nth-child 3)] :div :div :div :div [:div (html/nth-child 7)] :div.establishment-contact :div :div.tel :span])))))
+
+
+; version 2 for https://www.vigneron-independant.com/domaine-du-pic
+
+(defn street-address-2 [content]
+  (second
+    (:content
+      (first
+        (html/select content 
+          (conj sticky-contact :div.establishment-contact :div :div.adr :div))))))
+
+(defn postal-code-2 [content]
+  (first (:content
+      (first 
+        (html/select content 
+          (conj sticky-contact :div.establishment-contact :div :div.adr :span.postal-code))))))
+
+(defn locality-2 [content]
+  (first (:content
+      (first 
+        (html/select content 
+          (conj sticky-contact :div.establishment-contact :div :div.adr :span.locality))))))
+
+(defn name-2-2 [content]
+  (first (:content
+      (first 
+        (html/select content 
+          (conj sticky-contact :div.establishment-contact :div :div.fn.org :div :div :div))))))
+
+
+(defn mobile-2 [content]
+  (first (:content
+      (first 
+        (html/select content 
+          (conj sticky-contact :div.establishment-contact :div [:div (html/nth-child 4)] :span))))))
+
+(mobile-2 fontan)
+
+(html/select fontan 
+    (conj sticky-contact :div.establishment-contact :div [:div (html/nth-child 4)] :span))
+
+(defn tel-2 [content]
+  (first (:content
+      (first 
+        (html/select content 
+          (conj sticky-contact :div.establishment-contact :div [:div (html/nth-child 3)] :span))))))
+
+(defn fax-2 [content]
+  (first (:content
+      (first 
+        (html/select content 
+          (conj sticky-contact :div.establishment-contact :div [:div (html/nth-child 5)] :span))))))
+
+(defn website-2 [content]
+  (first (:content
+      (first 
+        (html/select content 
+          (conj sticky-contact :div.establishment-contact :div :div.url :a))))))
+
+
+(defn website [content]
+  (first (:content
+      (first (html/select content [:body :section :div [:div (html/nth-child 3)] :div :div :div :div [:div (html/nth-child 7)] :div.establishment-contact :div :div.url :a])))))
+
+(def page-pic 
+  (html/html-resource 
+    (java.net.URL. "https://www.vigneron-independant.com/domaine-du-pic")))
+
+(def jeune 
+  (html/html-resource 
+    (java.net.URL. "https://www.vigneron-independant.com/champagne-lejeune-pere-et-fils")))
+
+(def delaunay 
+  (html/html-resource 
+    (java.net.URL. "https://www.vigneron-independant.com/domaine-delaunay-1")))
+
+(def fontan 
+  (html/html-resource 
+    (java.net.URL. "https://www.vigneron-independant.com/vignobles-fontan")))
+
+
+(name-2-2 page-pic)
+(street-address-2 page-pic)
+(postal-code-2 page-pic)
+(locality-2 page-pic)
+(mobile-2 page-pic)
+(tel-2 page-pic)
+(fax-2 page-pic)
+(website-2 page-pic)
+
+(def page delaunay)
+
+(name-2-2 delaunay)
+(street-address-2 page)
+(postal-code-2 page)
+(locality-2 page)
+(mobile-2 page) 
+(tel-2 page)
+(fax-2 page)
+(website-2 page)
+
+(mobile delaunay)
+(mobile-2 delaunay)
+(mobile fontan)
+(mobile-2 fontan)
