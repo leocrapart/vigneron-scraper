@@ -451,7 +451,7 @@ url-list
 
 ; to excel
 (use 'dk.ative.docjure.spreadsheet)
-(defn save-excel [data]
+(defn save-excel [data filename]
   ;; Create a spreadsheet and save it
   (let [wb (create-workbook "vigneron data"
                             ; [["domain-name" "name-1" "name-2" "street-address" "postal-code" "locality" "mobile" "website" "wine-name" "wine-place" "wine-designation" "wine-domain" "wine-type" "wine-color"]
@@ -464,16 +464,23 @@ url-list
         header-row (first (row-seq sheet))]
     (set-row-style! header-row (create-cell-style! wb {:background :yellow,
                                                        :font {:bold true}}))
-    (save-workbook! "scraped-data.xlsx" wb)))
+    (save-workbook! filename wb)))
 
-(defn scrape-and-save-excel [filename n]
+
+
+(defn scrape-and-save-excel [filename n outfilename]
   (let [data (data filename n)]
-    (save-excel data)))
+    (save-excel data outfilename)))
 
 (scrape-and-save-excel "urls-1001-2000.txt" 1000)
 
+(scrape-and-save-excel "urls-2001-3000.txt" 1000 "data-2001-3000.xlsx")
+
+(scrape-and-save-excel "urls-3001-4000.txt" 1000 "data-3001-4000.xlsx")
+(scrape-and-save-excel "urls-4001-5000.txt" 1000 "data-4001-5000.xlsx")
+(scrape-and-save-excel "urls-5001-5910.txt" 1000 "data-5001-5910.xlsx")
 ; do others
-; try parrallel
+; try parrallel => 403 server error
 
 
 
