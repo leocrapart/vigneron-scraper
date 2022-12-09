@@ -29,9 +29,9 @@
   (first (:content (first 
       (html/select content [:body])))))
 
-(url content-search)
+; (url content-search)
 
-content-search
+; content-search
 
 ; n : page-number (page-2, page-3, ...)
 ; x : post-number
@@ -104,7 +104,7 @@ content-search
         from (drop 10 first-98)]
     (map scrape-urls from)))
 
-(scrape-all-urls)
+; (scrape-all-urls)
 
 
 
@@ -130,7 +130,7 @@ content-search
 (defn concatenate-txt []
   (save-seq-into-txt-file "urls.txt" (all-urls-seq)))
 
-(concatenate-txt)
+; (concatenate-txt)
 
 
 
@@ -152,9 +152,9 @@ content-search
 (def url-list 
   (remove-empty-strings
     (clojure.string/split (slurp "urls.txt") #"\n")))
-url-list
+; url-list
 
-(count url-list)
+; (count url-list)
 
 
 
@@ -257,42 +257,42 @@ url-list
 
 
 
-(tel (slurp "https://www.vigneron-independant.com/domaine-du-pic"))
-(tel (slurp "https://www.vigneron-independant.com/champagne-lejeune-pere-et-fils"))
-(tel (slurp "https://www.vigneron-independant.com/domaine-delaunay-1"))
-(tel (slurp "https://www.vigneron-independant.com/vignobles-fontan"))
+; (tel (slurp "https://www.vigneron-independant.com/domaine-du-pic"))
+; (tel (slurp "https://www.vigneron-independant.com/champagne-lejeune-pere-et-fils"))
+; (tel (slurp "https://www.vigneron-independant.com/domaine-delaunay-1"))
+; (tel (slurp "https://www.vigneron-independant.com/vignobles-fontan"))
 
 
-(mobile (slurp "https://www.vigneron-independant.com/domaine-montcabrel"))
-(mobile (slurp "https://www.vigneron-independant.com/tisseyre-fanny"))
-(mobile (slurp "https://www.vigneron-independant.com/domaine-des-chauchoux-domaine-manigley"))
-(mobile (slurp "https://www.vigneron-independant.com/societe-paul-ricard"))
-(mobile (slurp "https://www.vigneron-independant.com/domaine-claudine-vigne"))
-(mobile (slurp "https://www.vigneron-independant.com/tempe-andr%C3)%A9-0"))
-(mobile (slurp "https://www.vigneron-independant.com/domaine-de-la-massonniere"))
-(mobile (slurp "https://www.vigneron-independant.com/domaine-romanissa"))
-(mobile (slurp "https://www.vigneron-independant.com/chateau-des-tuilieres-0"))
-(mobile (slurp "https://www.vigneron-independant.com/bergerie-daquino"))
-(mobile (slurp "https://www.vigneron-independant.com/domaine-les-maillols"))
-(mobile (slurp "https://www.vigneron-independant.com/champagne-michel-turgy-0"))
-(mobile (slurp "https://www.vigneron-independant.com/bouchard-guy"))
-(mobile (slurp "https://www.vigneron-independant.com/alsace-munsch"))
-(mobile (slurp "https://www.vigneron-independant.com/domaine-de-grand-beaupre"))
-(mobile (slurp "https://www.vigneron-independant.com/domaine-saint-antoine"))
-(mobile (slurp "https://www.vigneron-independant.com/domaine-philippe-tessier"))
-(mobile (slurp "https://www.vigneron-independant.com/domaine-du-ch%C3%AAne"))
-(mobile (slurp "https://www.vigneron-independant.com/domaine-la-croix-belle"))
-(mobile (slurp "https://www.vigneron-independant.com/les-chemins-de-bassac"))
-(mobile (slurp "https://www.vigneron-independant.com/chateau-la-tuilerie-du-puy"))
-(mobile (slurp "https://www.vigneron-independant.com/chateau-les-gravi%C3%A8res"))
-(mobile (slurp "https://www.vigneron-independant.com/chateau-garraud-chateau-treytins"))
-(mobile (slurp "https://www.vigneron-independant.com/chateau-de-lisennes"))
-(mobile (slurp "https://www.vigneron-independant.com/chateau-la-salargue"))
+; (mobile (slurp "https://www.vigneron-independant.com/domaine-montcabrel"))
+; (mobile (slurp "https://www.vigneron-independant.com/tisseyre-fanny"))
+; (mobile (slurp "https://www.vigneron-independant.com/domaine-des-chauchoux-domaine-manigley"))
+; (mobile (slurp "https://www.vigneron-independant.com/societe-paul-ricard"))
+; (mobile (slurp "https://www.vigneron-independant.com/domaine-claudine-vigne"))
+; (mobile (slurp "https://www.vigneron-independant.com/tempe-andr%C3)%A9-0"))
+; (mobile (slurp "https://www.vigneron-independant.com/domaine-de-la-massonniere"))
+; (mobile (slurp "https://www.vigneron-independant.com/domaine-romanissa"))
+; (mobile (slurp "https://www.vigneron-independant.com/chateau-des-tuilieres-0"))
+; (mobile (slurp "https://www.vigneron-independant.com/bergerie-daquino"))
+; (mobile (slurp "https://www.vigneron-independant.com/domaine-les-maillols"))
+; (mobile (slurp "https://www.vigneron-independant.com/champagne-michel-turgy-0"))
+; (mobile (slurp "https://www.vigneron-independant.com/bouchard-guy"))
+; (mobile (slurp "https://www.vigneron-independant.com/alsace-munsch"))
+; (mobile (slurp "https://www.vigneron-independant.com/domaine-de-grand-beaupre"))
+; (mobile (slurp "https://www.vigneron-independant.com/domaine-saint-antoine"))
+; (mobile (slurp "https://www.vigneron-independant.com/domaine-philippe-tessier"))
+; (mobile (slurp "https://www.vigneron-independant.com/domaine-du-ch%C3%AAne"))
+; (mobile (slurp "https://www.vigneron-independant.com/domaine-la-croix-belle"))
+; (mobile (slurp "https://www.vigneron-independant.com/les-chemins-de-bassac"))
+; (mobile (slurp "https://www.vigneron-independant.com/chateau-la-tuilerie-du-puy"))
+; (mobile (slurp "https://www.vigneron-independant.com/chateau-les-gravi%C3%A8res"))
+; (mobile (slurp "https://www.vigneron-independant.com/chateau-garraud-chateau-treytins"))
+; (mobile (slurp "https://www.vigneron-independant.com/chateau-de-lisennes"))
+; (mobile (slurp "https://www.vigneron-independant.com/chateau-la-salargue"))
 
-(mobile "https://www.vigneron-independant.com/domaine-du-pic")
-(mobile "https://www.vigneron-independant.com/champagne-lejeune-pere-et-fils")
-(mobile "https://www.vigneron-independant.com/domaine-delaunay-1")
-(mobile "https://www.vigneron-independant.com/vignobles-fontan")
+; (mobile "https://www.vigneron-independant.com/domaine-du-pic")
+; (mobile "https://www.vigneron-independant.com/champagne-lejeune-pere-et-fils")
+; (mobile "https://www.vigneron-independant.com/domaine-delaunay-1")
+; (mobile "https://www.vigneron-independant.com/vignobles-fontan")
 
 
 
@@ -380,7 +380,7 @@ url-list
        ; (get-in page-data [:wine :wine-color])
        ])))
 
-(excel-row (page-data url))
+; (excel-row (page-data url))
 
 
 ;;;;;;;;;;;;;; SCRAPE PAGES WITH URLS
@@ -431,13 +431,13 @@ url-list
     (map page-data (take n (url-list filename)))))
 
 
-(data "urls.txt" 10)
-(data "urls.txt" 20)
-(data "urls.txt" 30)
-(data "urls.txt" 40)
-(data "urls.txt" 50)
-(data "urls.txt" 100)
-(count (data 20))
+; (data "urls.txt" 10)
+; (data "urls.txt" 20)
+; (data "urls.txt" 30)
+; (data "urls.txt" 40)
+; (data "urls.txt" 50)
+; (data "urls.txt" 100)
+; (count (data 20))
 
 (def title-list 
   ["domain-name" "name-1" "name-2" "street-address" "postal-code" "locality" "tel" "mobile" "website" "url"
@@ -472,15 +472,15 @@ url-list
   (let [data (data filename n)]
     (save-excel data outfilename)))
 
-(scrape-and-save-excel "urls-1001-2000.txt" 1000)
+; (scrape-and-save-excel "urls-1001-2000.txt" 1000 "data-1001-2000.xlsx")
 
 (scrape-and-save-excel "urls-2001-3000.txt" 1000 "data-2001-3000.xlsx")
-
 (scrape-and-save-excel "urls-3001-4000.txt" 1000 "data-3001-4000.xlsx")
 (scrape-and-save-excel "urls-4001-5000.txt" 1000 "data-4001-5000.xlsx")
 (scrape-and-save-excel "urls-5001-5910.txt" 1000 "data-5001-5910.xlsx")
 ; do others
 ; try parrallel => 403 server error
+; find the 403s, delete those urls, and rescrape until all ok
 
 
 
@@ -521,12 +521,12 @@ url-list
 (defn concat-save [filename vector]
   (save-seq-into-txt-file filename (seq vector)))
 
-(concat-save "urls-0-1000.txt" u0-1000)
-(concat-save "urls-1001-2000.txt" u1001-2000)
-(concat-save "urls-2001-3000.txt" u2001-3000)
-(concat-save "urls-3001-4000.txt" u3001-4000)
-(concat-save "urls-4001-5000.txt" u4001-5000)
-(concat-save "urls-5000-5910.txt" u4001-5910)
+; (concat-save "urls-0-1000.txt" u0-1000)
+; (concat-save "urls-1001-2000.txt" u1001-2000)
+; (concat-save "urls-2001-3000.txt" u2001-3000)
+; (concat-save "urls-3001-4000.txt" u3001-4000)
+; (concat-save "urls-4001-5000.txt" u4001-5000)
+; (concat-save "urls-5000-5910.txt" u4001-5910)
 
 
 
