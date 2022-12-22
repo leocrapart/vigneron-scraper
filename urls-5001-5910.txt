@@ -500,7 +500,6 @@ https://www.vigneron-independant.com/domaine-saint-jacques-dalbas
 https://www.vigneron-independant.com/mas-de-figuier
 https://www.vigneron-independant.com/champagne-benoit-cocteaux
 https://www.vigneron-independant.com/domaine-moreux
-https://www.vigneron-independant.com/le-claux-delorme-0
 https://www.vigneron-independant.com/cellier-lingot-martin
 https://www.vigneron-independant.com/domaine-du-mas-rouge
 https://www.vigneron-independant.com/benoit-viot
@@ -905,4 +904,3 @@ https://www.vigneron-independant.com/domaine-pontbriant
 https://www.vigneron-independant.com/earl-beiner
 https://www.vigneron-independant.com/domaine-les-3-mazets
 https://www.vigneron-independant.com/mon-jardin-de-vignes-0
-https://www.vigneron-independant.com/domaine-thibault-tourlonias

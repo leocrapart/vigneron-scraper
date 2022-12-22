@@ -18,7 +18,6 @@ https://www.vigneron-independant.com/domaine-de-lallamande
 https://www.vigneron-independant.com/domaine-saint-marc
 https://www.vigneron-independant.com/chateau-guillem-de-montjustin
 https://www.vigneron-independant.com/vignobles-estrade
-https://www.vigneron-independant.com/domaine-borie-neuve
 https://www.vigneron-independant.com/chateau-de-bertin
 https://www.vigneron-independant.com/chateau-lafargue-familles-leymarie-et-peyrout-1
 https://www.vigneron-independant.com/veronique-etienne
@@ -804,7 +803,6 @@ https://www.vigneron-independant.com/les-terres-de-baissus
 https://www.vigneron-independant.com/chateau-capitoul
 https://www.vigneron-independant.com/chateau-dillon
 https://www.vigneron-independant.com/domaine-de-fontvieille-0
-https://www.vigneron-independant.com/cave-tambour
 https://www.vigneron-independant.com/chateau-de-bel-air
 https://www.vigneron-independant.com/domaine-sainte-rose
 https://www.vigneron-independant.com/domaine-le-cazal
